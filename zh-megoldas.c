@@ -14,6 +14,9 @@ void konzolra(kupa *verseny, int meret);
 int versenyeztet(kupa *verseny, int meret);
 int maximum(kupa *verseny, int meret);
 int megjelenit(char *fajlnev);
+int kereso(kupa *verseny, int meret);
+int string_egyenlo_e(char *egyik, char *masik);
+int string_hossza(char *str);
 
 int main() {
   char fajlnev[50];
@@ -31,6 +34,9 @@ int main() {
     printf("Hat sajnos nem lehetett megnyitni a fajlt!");
   }
   if (maximum(verseny, meret)) {
+    printf("Hat sajnos nem lehetett megnyitni a fajlt!");
+  }
+  if (kereso(verseny, meret)) {
     printf("Hat sajnos nem lehetett megnyitni a fajlt!");
   }
   return 0;
@@ -158,4 +164,60 @@ int megjelenit(char *fajlnev) {
 
   fclose(fajl);
   return 0;
+}
+
+int kereso(kupa *verseny, int meret) {
+  FILE *fajlnev = NULL;
+  int i;
+  char kit[50];
+  int van_e = 0;
+
+  fajl = fopen("verseny.txt", "a");
+  if (!fajl) {
+    return 1;
+  }
+
+  printf("Kit keresel he? ");
+  scanf("%49s", kit);
+
+  for (i = 0; i < meret; i++) {
+    if (string_egyenlo_e(kit, verseny[i].nev)) {
+      van_e++;
+      printf("A keresett: nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
+      fprintf(fajl, "A keresett: nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
+    }
+  }
+
+  if (!van_e) {
+    printf("Hat hallod nem lett meg...");
+  }
+
+  fflush(fajl);
+  fclose(fajl);
+  return 0;
+}
+
+int string_egyenlo_e(char *egyik, char *masik) {
+  int i;
+  int egyik_hossz = string_hossza(egyik);
+  int masik_hossz = string_hossza(masik);
+
+  if (egyik_hossz != masik_hossz) {
+    return 0;
+  }
+
+  for (i = 0; i < egyik_hossz; i++) {
+    if (egyik[i] != masik[i]) {
+      return 0;
+    }
+  }
+  return 1;
+}
+
+int string_hossza(char *str) {
+  int hossz = 0;
+  while (str[hossz] != '\0') {
+    hossz++;
+  }
+  return hossz;
 }
