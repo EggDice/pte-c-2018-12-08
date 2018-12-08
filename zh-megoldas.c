@@ -8,6 +8,7 @@ typedef struct kupa {
 } kupa;
 
 int foglal(kupa **verseny_ptr, char *fajlnev, int *meret);
+int beolvas(kupa *verseny, char *fajlnev, int meret);
 
 int main() {
   char fajlnev[50];
@@ -15,10 +16,10 @@ int main() {
   kupa *verseny = NULL;
 
   if(foglal(&verseny, fajlnev, &meret)) {
-    printf("Hat sajnos nem lehetett megnyitni a fajlt!");
+    printf("Hat sajnos nem lehetett megnyitni a fajlt, vagy foglalni helyet!");
   }
-  if (verseny) {
-    printf("SIKEEER!");
+  if(beolvas(verseny, fajlnev, meret)) {
+    printf("Hat sajnos nem lehetett megnyitni a fajlt!");
   }
   return 0;
 }
@@ -27,7 +28,7 @@ int foglal(kupa **verseny_ptr, char *fajlnev, int *meret) {
   FILE *fajl = NULL;
   char character;
 
-  printf("Szervusz kedves felhasznalo, melyik fajlt nyissam meg?");
+  printf("Szervusz kedves felhasznalo, melyik fajlt nyissam meg? ");
   scanf("%49s", fajlnev);
 
   fajl = fopen(fajlnev, "r");
@@ -45,6 +46,25 @@ int foglal(kupa **verseny_ptr, char *fajlnev, int *meret) {
 
   if (!(*verseny_ptr)) {
     return 1;
+  }
+
+  fclose(fajl);
+  return 0;
+}
+
+int beolvas(kupa *verseny, char *fajlnev, int meret) {
+  FILE *fajl = NULL;
+  int i;
+
+  fajl = fopen(fajlnev, "r");
+  if (!fajl) {
+    return 1;
+  }
+
+  for (i = 0; i < meret; i++) {
+    char szo[40];
+    int szam;
+    fscanf(fajl, "%12s%d", verseny[i].nev, &verseny[i].evfolyam);
   }
 
   fclose(fajl);
