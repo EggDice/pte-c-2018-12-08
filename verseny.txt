@@ -1,0 +1,4 @@
+A verseny erdmenye:
+nev: alma_barack	 evf.: 3	 pontok: 713681880
+nev: korte	 evf.: 5	 pontok: 1318342412
+nev: dinnye	 evf.: 8	 pontok: 964017487

@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<stdlib.h>
+#include<time.h>
 
 typedef struct kupa {
   char nev[50];
@@ -10,19 +11,23 @@ typedef struct kupa {
 int foglal(kupa **verseny_ptr, char *fajlnev, int *meret);
 int beolvas(kupa *verseny, char *fajlnev, int meret);
 void konzolra(kupa *verseny, int meret);
+int versenyeztet(kupa *verseny, int meret);
 
 int main() {
   char fajlnev[50];
   int meret = 0;
   kupa *verseny = NULL;
 
-  if(foglal(&verseny, fajlnev, &meret)) {
+  if (foglal(&verseny, fajlnev, &meret)) {
     printf("Hat sajnos nem lehetett megnyitni a fajlt, vagy foglalni helyet!");
   }
-  if(beolvas(verseny, fajlnev, meret)) {
+  if (beolvas(verseny, fajlnev, meret)) {
     printf("Hat sajnos nem lehetett megnyitni a fajlt!");
   }
   konzolra(verseny, meret);
+  if (versenyeztet(verseny, meret)) {
+    printf("Hat sajnos nem lehetett megnyitni a fajlt!");
+  }
   return 0;
 }
 
@@ -76,4 +81,27 @@ void konzolra(kupa *verseny, int meret) {
   for(i = 0; i < meret; i++) {
     printf("nev: %s, evfolyam: %d\n", verseny[i].nev, verseny[i].evfolyam);
   }
+}
+
+int versenyeztet(kupa *verseny, int meret) {
+  FILE *fajl = NULL;
+  int i;
+  srand(time(NULL));
+
+  fajl = fopen("verseny.txt", "w");
+  if (!fajl) {
+    return 1;
+  }
+
+  printf("A verseny erdmenye:\n");
+  fprintf(fajl, "A verseny erdmenye:\n");
+  for (i = 0; i < meret; i++) {
+    verseny[i].pontok = rand();
+    printf("nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
+    fprintf(fajl, "nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
+  }
+
+  fflush(fajl);
+  fclose(fajl);
+  return 0;
 }
