@@ -13,6 +13,7 @@ int beolvas(kupa *verseny, char *fajlnev, int meret);
 void konzolra(kupa *verseny, int meret);
 int versenyeztet(kupa *verseny, int meret);
 int maximum(kupa *verseny, int meret);
+int megjelenit(char *fajlnev);
 
 int main() {
   char fajlnev[50];
@@ -137,6 +138,24 @@ int maximum(kupa *verseny, int meret) {
   }
 
   fflush(fajl);
+  fclose(fajl);
+  return megjelenit("verseny.txt");
+}
+
+int megjelenit(char *fajlnev) {
+  FILE *fajl;
+  char c;
+
+  fajl = fopen("verseny.txt", "r");
+  if (!fajl) {
+    return 1;
+  }
+  printf("A fajl tartalma:\n");
+
+  while ((c = fgetc(fajl)) != EOF) {
+    putchar(c);
+  }
+
   fclose(fajl);
   return 0;
 }
