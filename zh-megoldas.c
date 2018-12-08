@@ -9,6 +9,7 @@ typedef struct kupa {
 
 int foglal(kupa **verseny_ptr, char *fajlnev, int *meret);
 int beolvas(kupa *verseny, char *fajlnev, int meret);
+void konzolra(kupa *verseny, int meret);
 
 int main() {
   char fajlnev[50];
@@ -21,6 +22,7 @@ int main() {
   if(beolvas(verseny, fajlnev, meret)) {
     printf("Hat sajnos nem lehetett megnyitni a fajlt!");
   }
+  konzolra(verseny, meret);
   return 0;
 }
 
@@ -67,4 +69,11 @@ int beolvas(kupa *verseny, char *fajlnev, int meret) {
 
   fclose(fajl);
   return 0;
+}
+
+void konzolra(kupa *verseny, int meret) {
+  int i;
+  for(i = 0; i < meret; i++) {
+    printf("nev: %s, evfolyam: %d\n", verseny[i].nev, verseny[i].evfolyam);
+  }
 }
