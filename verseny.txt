@@ -1,7 +1,8 @@
 A verseny erdmenye:
-nev: alma_barack	 evf.: 3	 pontok: 2107146098
-nev: banan	 evf.: 8	 pontok: 686448037
-nev: korte	 evf.: 5	 pontok: 1646918486
-nev: dinnye	 evf.: 8	 pontok: 1570084128
-A legnagyobb pontszam: 2107146098
-Max pontos: nev: alma_barack	 evf.: 3	 pontok: 2107146098
+nev: alma_barack	 evf.: 3	 pontok: 1375502028
+nev: banan	 evf.: 8	 pontok: 889352582
+nev: korte	 evf.: 5	 pontok: 1585961093
+nev: dinnye	 evf.: 8	 pontok: 1526918307
+A legnagyobb pontszam: 1585961093
+Max pontos: nev: korte	 evf.: 5	 pontok: 1585961093
+A keresett: nev: banan	 evf.: 8	 pontok: 889352582
