@@ -12,6 +12,7 @@ int foglal(kupa **verseny_ptr, char *fajlnev, int *meret);
 int beolvas(kupa *verseny, char *fajlnev, int meret);
 void konzolra(kupa *verseny, int meret);
 int versenyeztet(kupa *verseny, int meret);
+int maximum(kupa *verseny, int meret);
 
 int main() {
   char fajlnev[50];
@@ -26,6 +27,9 @@ int main() {
   }
   konzolra(verseny, meret);
   if (versenyeztet(verseny, meret)) {
+    printf("Hat sajnos nem lehetett megnyitni a fajlt!");
+  }
+  if (maximum(verseny, meret)) {
     printf("Hat sajnos nem lehetett megnyitni a fajlt!");
   }
   return 0;
@@ -99,6 +103,37 @@ int versenyeztet(kupa *verseny, int meret) {
     verseny[i].pontok = rand();
     printf("nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
     fprintf(fajl, "nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
+  }
+
+  fflush(fajl);
+  fclose(fajl);
+  return 0;
+}
+
+int maximum(kupa *verseny, int meret) {
+  FILE *fajl = NULL;
+  int i;
+  int max = verseny[0].pontok;
+
+  fajl = fopen("verseny.txt", "a");
+  if (!fajl) {
+    return 1;
+  }
+
+  for (i = 1; i < meret; i++) {
+    if (verseny[i].pontok > max) {
+      max = verseny[i].pontok;
+    }
+  }
+
+  printf("A legnagyobb pontszam: %d\n", max);
+  fprintf(fajl, "A legnagyobb pontszam: %d\n", max);
+
+  for (i = 0; i < meret; i++) {
+    if (verseny[i].pontok == max) {
+      printf("Max pontos: nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
+      fprintf(fajl, "Max pontos: nev: %s\t evf.: %d\t pontok: %d\n", verseny[i].nev, verseny[i].evfolyam, verseny[i].pontok);
+    }
   }
 
   fflush(fajl);

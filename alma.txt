@@ -1,3 +1,4 @@
 alma_barack 3
+banan       8
 korte       5
 dinnye      8
