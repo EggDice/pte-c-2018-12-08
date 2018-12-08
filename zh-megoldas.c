@@ -62,8 +62,6 @@ int beolvas(kupa *verseny, char *fajlnev, int meret) {
   }
 
   for (i = 0; i < meret; i++) {
-    char szo[40];
-    int szam;
     fscanf(fajl, "%12s%d", verseny[i].nev, &verseny[i].evfolyam);
   }
 
